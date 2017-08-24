@@ -15,11 +15,6 @@ def parse_args(argv=None):
     parser.add_argument('key')
     parser.add_argument('value')
 
-    # parser.add_argument('--max', dest='max',
-    #                     help='Max value')
-    # parser.add_argument('--min', dest='min',
-    #                     help='Min value')
-
     parser.add_argument('-o', dest='filepath',
                         help='Save the file to the specified path.')
 
