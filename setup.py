@@ -13,14 +13,14 @@ setup(
         version=VERSION,
         author='Joakim Uddholm',
         author_email='tethik@gmail.com',
-        description='Commandline Interface to create badges.',
+        description='Commandline Interface to create shields.io style badges as SVG.',
         long_description=README,
         url='https://github.com/Tethik/badger',
         packages=['badger'],
         entry_points = {
-            'console_scripts': ['badger=badger'],
+            'console_scripts': ['badger=badger.__main__:main'],
         },
-        package_data={'': ['LICENSE', 'README.md']},
+        zip_safe=True,
         include_package_data=True,
         # install_requires=[
         # ],
