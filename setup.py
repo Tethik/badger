@@ -1,5 +1,3 @@
-from distutils.command.install_data import install_data
-
 from setuptools import setup, find_packages
 
 VERSION = "0.0.1"
@@ -22,18 +20,15 @@ setup(
         },
         zip_safe=True,
         include_package_data=True,
-        # install_requires=[
-        # ],
         tests_require=[
             'pytest',
             'pytest-cov',
         ],
         license=LICENSE,
         classifiers=[
-            'Development Status :: 5 - Production/Stable',
+            'Development Status :: 3 - Alpha',
             'Environment :: Console',
             'Intended Audience :: Developers',
-            'Intended Audience :: System Administrators',
             'License :: OSI Approved :: MIT',
             'Programming Language :: Python :: 3',
             'Programming Language :: Python :: 3.3',
