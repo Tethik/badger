@@ -8,13 +8,13 @@
         <rect width="{{ width }}" height="20" rx="3" fill="#fff"/>
     </mask>
     <g mask="url(#a)">
-        <path fill="#555" d="M0 0h{{ key_width }}v20H0z"/>
-        <path fill="{{ color }}" d="M{{ key_width }} 0h{{ value_width }}v20H{{ key_width }}z"/>
+        <path fill="#555" d="M0 0h{{ label_width }}v20H0z"/>
+        <path fill="{{ color }}" d="M{{ label_width }} 0h{{ value_width }}v20H{{ label_width }}z"/>
         <path fill="url(#b)" d="M0 0h{{ width }}v20H0z"/>
     </g>
     <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
-        <text x="{{ key_x }}" y="15" fill="#010101" fill-opacity=".3">{{ key }}</text>
-        <text x="{{ key_x }}" y="14" >{{ key }}</text>
+        <text x="{{ label_x }}" y="15" fill="#010101" fill-opacity=".3">{{ label }}</text>
+        <text x="{{ label_x }}" y="14" >{{ label }}</text>
         <text x="{{ value_x }}" y="15" fill="#010101" fill-opacity=".3">{{ value }}</text>
         <text x="{{ value_x }}" y="14">{{ value }}</text>
     </g>
