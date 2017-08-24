@@ -70,7 +70,7 @@ def main(argv=None):
         if not args.quiet:
             print('Saved badge to {}'.format(path))
     else:
-        print(badge, end='')
+        print(badge)
 
 if __name__ == '__main__':
     main()
