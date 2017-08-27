@@ -11,7 +11,9 @@ import pkg_resources
 
 __version__ = '0.0.1'
 
-DEFAULT_COLOR = '#a4a61d'
+DEFAULT_VALUE_COLOR = '#a4a61d'
+DEFAULT_LABEL_COLOR = '#555'
+
 COLORS = {
     'brightgreen': '#4c1',
     'green': '#97CA00',
@@ -39,32 +41,35 @@ class Badge(object):
     label and value can be any string.
     """
 
-    def __init__(self, label, value, color=DEFAULT_COLOR):
+    def __init__(self, label, value, value_color=DEFAULT_VALUE_COLOR, label_color=DEFAULT_LABEL_COLOR):
         self.label = label
         self.value = value
-        self.color = color
+        self.label_color = label_color
+        self.value_color = value_color
 
     def render(self):
         """
         Read the SVG template from the package, update total, return SVG as a
         string.
         """
-        label_width = max(80, 10 + 9 * len(self.label))
-        value_width = max(36, 10 + 9 * len(str(self.value)))
-        width = max(99, label_width + value_width)
-        value_x = label_width + (value_width / 2)
+        args = {            
+            'value': str(self.value),
+            'label': self.label,
+            'label_width': 10 + 5 * len(self.label),
+            'label_color': self.label_color,
+            'value_color': self.value_color,
+            'value_width': 10 + 5 * len(str(self.value)),
+        }
+
+        args['width'] = args['label_width'] + args['value_width']
+        args['value_x'] = args['label_width'] + (args['value_width'] / 2)
+        args['label_x'] = str(int(args['label_width'] / 2))
+
         template_path = os.path.join('templates', 'flat.svg')
         template = pkg_resources.resource_string(__name__, template_path).decode('utf8')
 
-        return template\
-            .replace('{{ label }}', self.label)\
-            .replace('{{ color }}', self.color)\
-            .replace('{{ value }}', str(self.value))\
-            .replace('{{ width }}', str(width))\
-            .replace('{{ value_x }}', str(value_x))\
-            .replace('{{ label_width }}', str(label_width))\
-            .replace('{{ label_x }}', str(int(label_width / 2)))\
-            .replace('{{ value_width }}', str(value_width))
+        return template.format(**args)
+
 
     def save(self, filepath, force=False):
         """

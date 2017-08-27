@@ -56,8 +56,8 @@ def main(argv=None):
     if args.percentage_mode:
         badge = badger.PercentageBadge(args.key, float(args.value.replace('%', '')))
     else:
-        color = args.color or badger.DEFAULT_COLOR
-        badge = badger.Badge(args.key, args.value, color=color)
+        color = args.color or badger.DEFAULT_VALUE_COLOR
+        badge = badger.Badge(args.key, args.value, value_color=color)
 
     # Show or save output
     if args.filepath:
