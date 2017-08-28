@@ -16,8 +16,8 @@ install:
   - pip install -e .
 
 # command to run tests
-# script: 
-#   - pytest --cov
+script: 
+  - pytest --cov
 
 # after_success:
 #   - codecov
