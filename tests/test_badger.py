@@ -32,7 +32,7 @@ def test_save():
 def test_save_folder_path():
     badge = badger.Badge("simple", "badge")
     fn = "test{}/".format(uuid.uuid4())
-    with pytest.raises(OSError):
+    with pytest.raises(IOError):
         badge.save(fn)
 
 def test_main_simple():
