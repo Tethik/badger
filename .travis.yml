@@ -9,8 +9,8 @@ python:
 #  - "nightly" # currently points to 3.7-dev
 
 before_install:
-  - apt install python-logilab-common
-  - pip install pytest pytest-cov
+  - sudo apt install python-logilab-common
+  - sudo pip install pytest pytest-cov
 
 # command to install dependencies
 install: 
