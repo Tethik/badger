@@ -9,7 +9,7 @@ import sys
 import argparse
 import pkg_resources
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 DEFAULT_VALUE_COLOR = '#a4a61d'
 DEFAULT_LABEL_COLOR = '#555'
@@ -71,28 +71,15 @@ class Badge(object):
         return template.format(**args)
 
 
-    def save(self, filepath, force=False):
+    def save(self, filepath):
         """
         Save badge to the specified path.
         """
-        # Validate path (part 1)
-        if filepath.endswith('/'):
-            raise IOError('Error: Filepath may not be a directory.')
-
-        # Get absolute filepath
-        path = os.path.abspath(filepath)
-        if not path.lower().endswith('.svg'):
-            path += '.svg'
-
-        # Validate path (part 2)
-        if not force and os.path.exists(path):
-            raise FileExistsError('Error: "{}" already exists.'.format(path))
-
         # Write file
-        with open(path, 'w') as _file:
+        with open(filepath, 'w') as _file:
             _file.write(self.render())
 
-        return path
+        return filepath
 
     def __str__(self):
         return self.render()
@@ -107,17 +94,14 @@ class ColorRangeBadge(Badge):
         super(ColorRangeBadge, self).__init__(label, numeric_value)
         self.minimum = minimum
         self.maximum = maximum        
-        self.color = self.get_color(numeric_value)
+        self.color = self.get_color(float(numeric_value))
         
 
     def get_color(self, total):
         """
         Return color for total relative to minimum and maximum of range.
         """
-        try:
-            xtotal = int(total)
-        except ValueError:
-            return COLORS['lightgrey']
+        xtotal = int(total)
 
         factor = 100 / (self.maximum - self.minimum)
         print(factor)

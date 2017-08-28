@@ -25,12 +25,10 @@ def parse_args(argv=None):
     parser.add_argument('-c', dest='color', action='store_true',
                         help='Sets the color of the badge. Must be in hex, e.g. #a4a61d')
 
-    parser.add_argument('-f', dest='force', action='store_true',
-                        help='Force overwrite image, use with -o key.')
     parser.add_argument('-q', dest='quiet', action='store_true',
                         help='Don\'t output any non-error messages.')
-    parser.add_argument('-v', dest='print_version', action='store_true',
-                        help='Show version.')
+    parser.add_argument('-v', dest='print_version', action='version',
+                        help='Show version.', version='%(prog)s {}'.format(badger.__version__))
 
     # If arguments have been passed in, use them.
     if argv:
@@ -46,11 +44,7 @@ def main(argv=None):
     Console scripts entry point.
     """
     args = parse_args(argv)
-
-    # Print version
-    if args.print_version:
-        print('badger v{}'.format(badger.__version__))
-        sys.exit(0)
+    print(args)
 
     # Attempt to parse % type badge automatically.
     if args.percentage_mode:
@@ -61,7 +55,7 @@ def main(argv=None):
 
     # Show or save output
     if args.filepath:
-        path = badge.save(args.filepath, args.force)
+        path = badge.save(args.filepath)
         if not args.quiet:
             print('Saved badge to {}'.format(path))
     else:
