@@ -10,7 +10,7 @@ python:
 
 before_install:
   - sudo apt install python-logilab-common
-  - sudo pip install pytest pytest-cov
+  - pip install pytest pytest-cov
 
 # command to install dependencies
 install: 
