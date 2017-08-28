@@ -44,7 +44,6 @@ def main(argv=None):
     Console scripts entry point.
     """
     args = parse_args(argv)
-    print(args)
 
     # Attempt to parse % type badge automatically.
     if args.percentage_mode:
