@@ -65,14 +65,6 @@ jobs:
           path: /tmp/test-results
           destination: test-reports
 
-      - store_artifacts:
-          path: /tmp/badges
-          destination: badges
-
-      - run:
-          name: badges directory
-          command: mkdir /tmp/badges
-
       - run:
           name: create build badge
           command: |
@@ -92,4 +84,8 @@ jobs:
           command: |
             . venv/bin/activate
             python .circleci/coverage.py /tmp/test-results/coverage.xml /tmp/badges/coverage.svg
+
+      - store_artifacts:
+          path: /tmp/badges
+          destination: badges
 
