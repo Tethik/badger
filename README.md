@@ -1,4 +1,7 @@
 # badger
+![https://circleci.com/api/v1.1/project/github/Tethik/badger/latest/artifacts/0/$CIRCLE_ARTIFACTS/badges/build.svg](https://circleci.com/gh/Tethik/badger/tree/master)
+![https://circleci.com/api/v1.1/project/github/Tethik/badger/latest/artifacts/0/$CIRCLE_ARTIFACTS/badges/coverage.svg](https://circleci.com/api/v1.1/project/github/Tethik/badger/latest/artifacts/0/$CIRCLE_ARTIFACTS/test-results/coverage/index.html)
+
 Commandline Interface to create badges.
 
 ## Install
