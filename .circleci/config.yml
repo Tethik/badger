@@ -46,7 +46,7 @@ jobs:
             . venv/bin/activate
             py.test --junit-xml /tmp/test-results/junit.xml --cov=badger/ --cov-report=xml:/tmp/test-results/coverage.xml --cov-branch
 
-      - store_test_artifacts:
+      - store_test_results:
           path: /tmp/test-results
 
       - store_artifacts:
