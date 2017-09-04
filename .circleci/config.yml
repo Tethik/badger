@@ -20,6 +20,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: show python version
+          command: python --version
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -30,7 +34,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
+            python -m venv venv
             . venv/bin/activate
             pip install -r dev-requirements.txt
 
@@ -43,14 +47,14 @@ jobs:
           name: install the package
           command: |
             . venv/bin/activate
-            python3 setup.py install
+            python setup.py install
         
       # run tests!
       - run:
           name: run tests
           command: |
             . venv/bin/activate
-            py.test --junit-xml /tmp/test-results/junit.xml --cov=badger/ --cov-report=xml:/tmp/test-results/coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
+            py.test --junit-xml /tmp/test-results/junit.xml --cov=~/repo/badger/ --cov-report=xml:/tmp/test-results/coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
 
       - store_test_results:
           path: /tmp/test-results
