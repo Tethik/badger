@@ -66,20 +66,20 @@ jobs:
       - run:
           name: create build badge
           command: |
-          . venv/bin/activate
-          badger build failed -o /tmp/badges/build.svg
+            . venv/bin/activate
+            badger build failed -o /tmp/badges/build.svg
           when: on_fail
 
       - run:
           name: create build success badge
           command: |
-          . venv/bin/activate
-          badger build success -o /tmp/badges/build.svg
+            . venv/bin/activate
+            badger build success -o /tmp/badges/build.svg
           when: on_success
 
       - run:
           name: create test coverage badge
           command: |
-          . venv/bin/activate
-          python .circleci/coverage.py /tmp/test-results/coverage.xml /tmp/badges/coverage.svg
+            . venv/bin/activate
+            python .circleci/coverage.py /tmp/test-results/coverage.xml /tmp/badges/coverage.svg
 
