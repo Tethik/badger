@@ -64,6 +64,10 @@ jobs:
           destination: badges
 
       - run:
+          name: badges directory
+          command: mkdir /tmp/badges
+
+      - run:
           name: create build badge
           command: |
             . venv/bin/activate
