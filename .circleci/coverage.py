@@ -6,7 +6,7 @@ import badger
 
 report_file, svg_file = sys.argv[1], sys.argv[2]
 
-regex = re.compile(r'branch-rate="(\d+\.?\d+)%?"', re.MULTILINE)
+regex = re.compile(r'branch-rate="(\d+\.?\d*)%?"', re.MULTILINE)
 
 text = open(report_file).read()
 
