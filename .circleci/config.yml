@@ -37,11 +37,12 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
 
       - run:
           name: install the package
           command: |
+            . venv/bin/activate
             python3 setup.py install
         
       # run tests!
