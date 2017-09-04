@@ -50,7 +50,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            py.test --junit-xml /tmp/test-results/junit.xml --cov=badger/ --cov-report=xml:/tmp/test-results/coverage.xml --cov-branch
+            py.test --junit-xml /tmp/test-results/junit.xml --cov=badger/ --cov-report=xml:/tmp/test-results/coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
 
       - store_test_results:
           path: /tmp/test-results
@@ -58,3 +58,28 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-reports
+
+      - store_artifacts:
+          path: /tmp/badges
+          destination: badges
+
+      - run:
+          name: create build badge
+          command: |
+          . venv/bin/activate
+          badger build failed -o /tmp/badges/build.svg
+          when: on_fail
+
+      - run:
+          name: create build success badge
+          command: |
+          . venv/bin/activate
+          badger build success -o /tmp/badges/build.svg
+          when: on_success
+
+      - run:
+          name: create test coverage badge
+          command: |
+          . venv/bin/activate
+          python .circleci/coverage.py /tmp/test-results/coverage.xml /tmp/badges/coverage.svg
+
