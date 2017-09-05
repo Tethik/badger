@@ -49,7 +49,7 @@ jobs:
           name: install the package
           command: |
             . venv/bin/activate
-            python setup.py install
+            python setup.py develop
         
       # run tests!
       - run:
