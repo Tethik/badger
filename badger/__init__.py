@@ -9,9 +9,9 @@ import sys
 import argparse
 import pkg_resources
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
-DEFAULT_VALUE_COLOR = '#a4a61d'
+DEFAULT_VALUE_COLOR = '#97CA00'
 DEFAULT_LABEL_COLOR = '#555'
 
 COLORS = {
@@ -55,10 +55,10 @@ class Badge(object):
         args = {            
             'value': str(self.value),
             'label': self.label,
-            'label_width': 10 + 5 * len(self.label),
+            'label_width': 10 + 6 * len(self.label),
             'label_color': self.label_color,
             'value_color': self.value_color,
-            'value_width': 10 + 5 * len(str(self.value)),
+            'value_width': 10 + 6 * len(str(self.value)),
         }
 
         args['width'] = args['label_width'] + args['value_width']
