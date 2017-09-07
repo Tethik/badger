@@ -20,9 +20,7 @@ def parse_args(argv=None):
 
     parser.add_argument('-p', dest='percentage_mode', action='store_true',
                         help='Percentage mode. Standard green badge.')
-    parser.add_argument('-s', dest='simple_mode', action='store_true',
-                        help='Simple mode. Standard green badge unless given by -c')
-    parser.add_argument('-c', dest='color', action='store_true',
+    parser.add_argument('-c', dest='color',
                         help='Sets the color of the badge. Must be in hex, e.g. #a4a61d')
 
     parser.add_argument('-q', dest='quiet', action='store_true',
