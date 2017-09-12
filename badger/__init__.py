@@ -7,9 +7,13 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 import os
 import sys
 import argparse
+import logging
+import uuid
 import pkg_resources
 
-__version__ = '0.0.3'
+import freetype
+
+from .version import __version__
 
 DEFAULT_VALUE_COLOR = '#97CA00'
 DEFAULT_LABEL_COLOR = '#555'
@@ -33,6 +37,9 @@ COLOR_RANGES = [
     (0, 'red'),
 ]
 
+FONT = "DejaVuSans.ttf"
+FONT_SIZE = 11
+
 
 class Badge(object):
     """
@@ -47,23 +54,54 @@ class Badge(object):
         self.label_color = label_color
         self.value_color = value_color
 
+    def _calculate_width_of_text(self, text):
+        """
+        Calculate the actual pixel width of a text
+        """
+        # try:
+        
+        font_path = os.path.join('fonts', FONT)
+        _file = pkg_resources.resource_filename(__name__, font_path)
+        face = freetype.Face(_file)
+
+        face.set_char_size(FONT_SIZE*64)
+        previous = 0
+        width = 0
+        for character in text:
+            face.load_char(character)
+            kerning = face.get_kerning(previous, character)
+            width += face.glyph.advance.x + kerning.x
+        logging.debug('Freetype calculated width %i for text "%s"', width >> 6, text)        
+        return (width >> 6)
+        # except:
+        #     print("Used estimated width")
+        #     return 10 + 6 * len(text)
+
+
     def render(self):
         """
         Read the SVG template from the package, update total, return SVG as a
         string.
         """
-        args = {            
+
+        padding_outside = 6.0
+        padding_inside = 4.0
+        label_text_width = self._calculate_width_of_text(self.label)
+        value_text_width = self._calculate_width_of_text(str(self.value))
+        
+        args = {           
             'value': str(self.value),
             'label': self.label,
-            'label_width': 10 + 6 * len(self.label),
-            'label_color': self.label_color,
             'value_color': self.value_color,
-            'value_width': 10 + 6 * len(str(self.value)),
+            'label_color': self.label_color,
+            'label_width': int(padding_outside + label_text_width + padding_inside),
+            'value_width': int(padding_inside + value_text_width + padding_outside),
+            'uuid': str(uuid.uuid4()),
         }
 
-        args['width'] = args['label_width'] + args['value_width']
-        args['value_x'] = args['label_width'] + (args['value_width'] / 2)
-        args['label_x'] = str(int(args['label_width'] / 2))
+        args['width'] = int(args['label_width'] + args['value_width'])
+        args['label_x'] = int(padding_outside)
+        args['value_x'] = int(args['label_width'] + padding_inside)
 
         template_path = os.path.join('templates', 'flat.svg')
         template = pkg_resources.resource_string(__name__, template_path).decode('utf8')
