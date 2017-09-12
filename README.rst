@@ -1,5 +1,6 @@
 badger
 ======
+|version| |coverage|
 
 Commandline Interface to create svg badges.
 
@@ -19,10 +20,6 @@ Simplest use case of static label and value:
 
     badger version v0.1.0
 
-Will generate |version|
-
-------------------------
-
 Percentage mode, with color picked relative to where in the 0-100 range
 the value is.
 
@@ -30,7 +27,6 @@ the value is.
 
     badger -p coverage 71.29%
 
-Will generate |coverage|
 
 Usage (Package)
 ---------------
@@ -40,15 +36,15 @@ Usage (Package)
     from badger import Badge, PercentageBadge
 
     badge = Badge("version", "v0.1.0")
-    badge.save("test.svg")
+    badge.save("examples/version.svg")
 
     percentage_badge = PercentageBadge("coverage", 71.29)
-    badge.save("percentage-test.svg")
+    badge.save("examples/coverage.svg")
 
 Disclaimer
 ==========
 
-Code heavily copied from https://github.com/dbrgn/coverage-badge, badge
+Code originally heavily copied from https://github.com/dbrgn/coverage-badge . Badge
 design originally from https://github.com/badges/shields
 
 .. |version| image:: examples/version.svg
