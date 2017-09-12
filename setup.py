@@ -13,7 +13,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "bdist_wheel":
     # Lets update the readme with build info before releasing ;)
     import pytest
     import badger
-    
+
     pytest.main(['--cov=badger', '--cov-report=xml', '--junit-xml=test-results.xml'])
     print()
     with open('coverage.xml') as cover_file:
@@ -27,7 +27,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "bdist_wheel":
     with open('README.rst', 'w') as f:
         README = re.sub(r'v\d.\d.\d', 'v'+VERSION, README)
         README = re.sub(r'\d+\.?\d*%', '{:.2%}'.format(coverage), README)
-        README = re.sub(r'\("coverage", \d+\.?\d*\)', '("coverage", {0:.2f})'.format(100 * coverage), README)        
+        README = re.sub(r'\("coverage", \d+\.?\d*\)', '("coverage", {0:.2f})'.format(100 * coverage), README)
         f.write(README)
 
 
@@ -44,6 +44,7 @@ setup(
         'console_scripts': ['badger=badger.__main__:main'],
     },
     zip_safe=True,
+    package_data={'': ['LICENSE', 'README.rst']},
     include_package_data=True,
     install_requires=[
         'freetype-py',
