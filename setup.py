@@ -20,6 +20,9 @@ setup(
         },
         zip_safe=True,
         include_package_data=True,
+	install_requires=[
+	    'freetype-py',
+	],
         tests_require=[
             'pytest',
             'pytest-cov',
