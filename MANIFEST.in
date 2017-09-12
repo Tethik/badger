@@ -1,3 +1,4 @@
-include README.rst LICENSE.txt
+include README.rst LICENSE
 include badger/templates/*.svg
 include badger/fonts/*.ttf
+include examples/*
