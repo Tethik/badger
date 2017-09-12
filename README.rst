@@ -18,7 +18,7 @@ Simplest use case of static label and value:
 
 .. code:: bash      
 
-    badger version v0.1.0
+    badger version v0.1.1
 
 Percentage mode, with color picked relative to where in the 0-100 range
 the value is.
@@ -35,7 +35,7 @@ Usage (Package)
 
     from badger import Badge, PercentageBadge
 
-    badge = Badge("version", "v0.1.0")
+    badge = Badge("version", "v0.1.1")
     badge.save("examples/version.svg")
 
     percentage_badge = PercentageBadge("coverage", 71.29)
