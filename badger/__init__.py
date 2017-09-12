@@ -7,11 +7,13 @@ from __future__ import print_function, division, absolute_import, unicode_litera
 import os
 import sys
 import argparse
-import pkg_resources
 import logging
 import uuid
+import pkg_resources
 
-__version__ = '0.0.3'
+import freetype
+
+from .version import __version__
 
 DEFAULT_VALUE_COLOR = '#97CA00'
 DEFAULT_LABEL_COLOR = '#555'
@@ -57,12 +59,12 @@ class Badge(object):
         Calculate the actual pixel width of a text
         """
         # try:
-        import freetype
+        
         font_path = os.path.join('fonts', FONT)
         _file = pkg_resources.resource_filename(__name__, font_path)
         face = freetype.Face(_file)
-        
-        face.set_char_size( FONT_SIZE*64 )
+
+        face.set_char_size(FONT_SIZE*64)
         previous = 0
         width = 0
         for character in text:
