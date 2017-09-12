@@ -1,17 +1,17 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="198" height="20">
-  <linearGradient id="gradient-262521b3-4547-4619-8f11-069e414814cb" x2="0" y2="100%">
+  <linearGradient id="gradient-9eb8fb62-4a6e-45b8-94d6-0b5a942bbf63" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
 
-  <clipPath id="clip-path-262521b3-4547-4619-8f11-069e414814cb">
+  <clipPath id="clip-path-9eb8fb62-4a6e-45b8-94d6-0b5a942bbf63">
     <rect width="198" height="20" rx="3" fill="#fff"/>
   </clipPath>
 
-  <g clip-path="url(#clip-path-262521b3-4547-4619-8f11-069e414814cb)">
+  <g clip-path="url(#clip-path-9eb8fb62-4a6e-45b8-94d6-0b5a942bbf63)">
     <path fill="#555" d="M0 0h62v20H0z"/>
     <path fill="#97CA00" d="M62 0h136v20H62z"/>
-    <path fill="url(#gradient-262521b3-4547-4619-8f11-069e414814cb)" d="M0 0h198v20H0z"/>
+    <path fill="url(#gradient-9eb8fb62-4a6e-45b8-94d6-0b5a942bbf63)" d="M0 0h198v20H0z"/>
   </g>
 
   <g fill="#fff" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
