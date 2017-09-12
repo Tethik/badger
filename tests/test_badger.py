@@ -35,6 +35,14 @@ def test_save_folder_path():
     with pytest.raises(IOError):
         badge.save(fn)
 
+def test_width_calculation():
+    badge = badger.Badge("simple", "badge")
+    calculated = badge._calculate_width_of_text("Hello World !")
+    assert calculated == 70
+
+
+# CLI Tests (only checking that the program does not crash)
+
 def test_main_simple():
     main(argv=["simple","badge"])
 
@@ -59,3 +67,4 @@ def test_main_save_quiet():
     fn = "test{}.svg".format(uuid.uuid4())
     main(argv=["simple","badge","-o",fn,"-q"])
     os.remove(fn)
+

@@ -3,7 +3,7 @@ Console script to generate SVG badge from a commandline.
 """
 
 import argparse
-import sys
+import logging
 import badger
 
 
@@ -27,6 +27,7 @@ def parse_args(argv=None):
                         help='Don\'t output any non-error messages.')
     parser.add_argument('-v', dest='print_version', action='version',
                         help='Show version.', version='%(prog)s {}'.format(badger.__version__))
+    parser.add_argument('-d', dest='debug', action='store_true')
 
     # If arguments have been passed in, use them.
     if argv:
@@ -36,12 +37,14 @@ def parse_args(argv=None):
     return parser.parse_args()
 
 
-
 def main(argv=None):
     """
     Console scripts entry point.
     """
     args = parse_args(argv)
+
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
 
     # Attempt to parse % type badge automatically.
     if args.percentage_mode:
@@ -54,7 +57,7 @@ def main(argv=None):
     if args.filepath:
         path = badge.save(args.filepath)
         if not args.quiet:
-            print('Saved badge to {}'.format(path))
+            print('Saved badge to "{}"'.format(path))
     else:
         print(badge)
 
