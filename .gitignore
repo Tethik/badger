@@ -102,3 +102,4 @@ ENV/
 
 # Svg files probably left in here for testing.
 *.svg
+!examples/*.svg
