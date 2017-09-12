@@ -15,16 +15,17 @@ Usage (Commandline)
 
 Simplest use case of static label and value.
 
-.. code:: bash
+========================== ===============================
+.. code:: bash             .. image:: examples/version.svg
 
-    badger version v1.2.3
-
+    badger version v0.1.0
+========================== ===============================
 Percentage mode, with color picked relative to where in the 0-100 range
 the value is.
 
 .. code:: bash
 
-    badger -p coverage 60%
+    badger -p coverage 71.29%
 
 Usage (Package)
 ---------------
@@ -33,10 +34,10 @@ Usage (Package)
 
     from badger import Badge, PercentageBadge
 
-    badge = Badge("version", "v1.2.3")
+    badge = Badge("version", "v0.1.0")
     badge.save("test.svg")
 
-    percentage_badge = PercentageBadge("coverage", 60)
+    percentage_badge = PercentageBadge("coverage", 71.29)
     badge.save("percentage-test.svg")
 
 Disclaimer
