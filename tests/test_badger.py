@@ -15,7 +15,6 @@ def test_render_percentage_badge():
 def test_percentage_bad():
     with pytest.raises(ValueError):
         badger.PercentageBadge("percent", "not a number")
-    
 
 def test_render_range_badge():
     for i in range(0, 50):
@@ -37,7 +36,7 @@ def test_save_folder_path():
 
 def test_width_calculation():
     badge = badger.Badge("simple", "badge")
-    calculated = badge._calculate_width_of_text("Hello World !")
+    calculated = badger._calculate_width_of_text("Hello World !")
     assert calculated == 70
 
 
@@ -50,11 +49,11 @@ def test_main_percentage():
     main(argv=["simple","73%","-p"])
     main(argv=["simple","73","-p"])
 
-def test_main_version():    
+def test_main_version():
     with pytest.raises(SystemExit):
         main(argv=["-v"])
 
-def test_main_version():    
+def test_main_noargs():
     with pytest.raises(SystemExit):
         main()
 

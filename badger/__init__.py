@@ -56,6 +56,7 @@ def _calculate_width_of_text(text):
         face.load_char(character)
         kerning = face.get_kerning(previous, character)
         width += face.glyph.advance.x + kerning.x
+        previous = character
     logging.debug('Freetype calculated width %i for text "%s"', width >> 6, text)
     return width >> 6
 
