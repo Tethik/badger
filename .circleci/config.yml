@@ -62,7 +62,7 @@ jobs:
           command: |
             . venv/bin/activate
             ./cc-test-reporter before-build
-            py.test --junit-xml /tmp/test-results/junit.xml --cov=badger --cov-report=xml:/tmp/test-results/coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
+            py.test --junit-xml /tmp/test-results/junit.xml --cov=badger --cov-report=xml:/tmp/test-results/coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-report= --cov-branch
             ./cc-test-reporter after-build --exit-code $?
 
       - store_test_results:
