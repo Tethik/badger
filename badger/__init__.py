@@ -9,14 +9,20 @@ import sys
 import argparse
 import logging
 import uuid
-import pkg_resources
+import re
+try:
+    import html
+except ImportError:
+    import cgi as html
 
+import pkg_resources
 import freetype
 
 from .version import __version__
 
 DEFAULT_VALUE_COLOR = '#97CA00'
 DEFAULT_LABEL_COLOR = '#555'
+COLOR_HEX_REGEXP = r'#([0-9]|[A-z]){3,6}'
 
 COLORS = {
     'brightgreen': '#4c1',
@@ -73,8 +79,16 @@ class Badge(object):
                  label_color=DEFAULT_LABEL_COLOR):
         self.label = label
         self.value = value
+
+        # Validate color inputs as proper hexes.
+        if not re.match(COLOR_HEX_REGEXP, label_color):
+            raise ValueError("label_color was not a valid color hex.")
+        if not re.match(COLOR_HEX_REGEXP, value_color):
+            raise ValueError("value_color was not a valid color hex.")
+
         self.label_color = label_color
         self.value_color = value_color
+
 
 
     def render(self):
@@ -89,8 +103,8 @@ class Badge(object):
         value_text_width = _calculate_width_of_text(str(self.value))
 
         args = {
-            'value': str(self.value),
-            'label': self.label,
+            'value': html.escape(str(self.value)),
+            'label': html.escape(self.label),
             'value_color': self.value_color,
             'label_color': self.label_color,
             'label_width': int(padding_outside + label_text_width + padding_inside),

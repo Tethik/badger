@@ -34,9 +34,19 @@ def test_save_folder_path():
     with pytest.raises(IOError):
         badge.save(fn)
 
+@pytest.mark.skip("Not sure what the correct width should be here. I get different results on CI and locally.")
+def test_width_calculation():
+    badge = badger.Badge("simple", "badge")
+    calculated = badger._calculate_width_of_text("Hello World !")
+    assert calculated == 70
+
+
+# Test some injections
+
+evil_injection = '<image href="https://blacknode.se/cat" height="200" width="200"/>'
+
 def test_validation(tmpdir):
-    evil_injection = '<image href="https://blacknode.se/cat" height="200" width="200"/>'
-    badge = badger.Badge("simple", evil_injection, value_color=evil_injection)
+    badge = badger.Badge("simple", evil_injection)
     fn = "test{}.svg".format(uuid.uuid4())
     fn = str(tmpdir.join(fn))
     badge.save(fn)
@@ -44,12 +54,13 @@ def test_validation(tmpdir):
     with open(fn) as _file:
         assert "<image" not in _file.read()
 
+def test_validation_label_color(tmpdir):
+    with pytest.raises(ValueError):
+        badger.Badge("simple", "badge", label_color=evil_injection)
 
-@pytest.mark.skip("Not sure what the correct width should be here. I get different results on CI and locally.")
-def test_width_calculation():
-    badge = badger.Badge("simple", "badge")
-    calculated = badger._calculate_width_of_text("Hello World !")
-    assert calculated == 70
+def test_validation_value_color(tmpdir):
+    with pytest.raises(ValueError):
+        badger.Badge("simple", "badge", value_color=evil_injection)
 
 
 # CLI Tests (only checking that the program does not crash)
