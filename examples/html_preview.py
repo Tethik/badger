@@ -36,9 +36,6 @@ def main():
     i = 0
     for label, value in pairs:
         badge = badger.Badge(label, value)
-        # filename = "{i}.svg".format(i=i)
-        # badge.save(filename)
-        # badges.append("<img src='{filename}'>".format(filename=filename))
         badges.append("<object>" + badge.render() + "</object>")
         i += 1
 

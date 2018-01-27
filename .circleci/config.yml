@@ -5,58 +5,44 @@
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
     working_directory: ~/repo
+    
+    docker:
+      - image: kennethreitz/pipenv:latest
+
+    
 
     steps:
       - checkout
 
       - run:
-          name: show python version
+          name: Setup Code Climate test-reporter
           command: |
-            python --version
-            ls
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "dev-requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          key: dependencies-{{ checksum "Pipfile.lock" }}
 
       - run:
           name: install dependencies
           command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r dev-requirements.txt
+            pipenv install --dev --ignore-pipfile --verbose
 
       - save_cache:
+          key: dependencies-{{ checksum "Pipfile.lock" }}
           paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "dev-requirements.txt" }}
-
-      - run:
-          name: install the package
-          command: |
-            . venv/bin/activate
-            python setup.py develop
+            - ~/.local/share/virtualenvs
+        
         
       # run tests!
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
-            py.test --junit-xml /tmp/test-results/junit.xml --cov=badger --cov-report=xml:/tmp/test-results/coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
+            ./cc-test-reporter before-build
+            pipenv run py.test --junit-xml /tmp/test-results/junit.xml --cov=badger --cov-report=xml:coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
+            ./cc-test-reporter after-build -t coverage.py --exit-code $?
 
       - store_test_results:
           path: /tmp/test-results
@@ -65,29 +51,32 @@ jobs:
           path: /tmp/test-results
           destination: test-reports
 
+
+      # Test running the actual package :)
       - run:
-          name: badges directory
-          command: mkdir /tmp/badges
+          name: install the package
+          command: |
+            python setup.py install
 
       - run:
           name: create build badge
           command: |
-            . venv/bin/activate
-            badger build failed -o /tmp/badges/build.svg
+            mkdir /tmp/badges
+            badger build failed -o /tmp/badges/build.svg -c \#e05d44
           when: on_fail
 
       - run:
           name: create build success badge
           command: |
-            . venv/bin/activate
+            mkdir /tmp/badges
             badger build success -o /tmp/badges/build.svg
           when: on_success
 
       - run:
           name: create test coverage badge
           command: |
-            . venv/bin/activate
-            python .circleci/coverage.py /tmp/test-results/coverage.xml /tmp/badges/coverage.svg
+            python .circleci/coverage.py coverage.xml /tmp/badges/coverage.svg
+          when: always
 
       - store_artifacts:
           path: /tmp/badges
