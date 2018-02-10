@@ -10,8 +10,6 @@ jobs:
     docker:
       - image: kennethreitz/pipenv:latest
 
-    
-
     steps:
       - checkout
 
@@ -49,6 +47,7 @@ jobs:
           name: install the package
           command: |
             python setup.py install
+          when: always
 
       - run:
           name: create build badge
