@@ -15,12 +15,6 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Setup Code Climate test-reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-
       # Download and cache dependencies
       - restore_cache:
           key: dependencies-{{ checksum "Pipfile.lock" }}
@@ -40,9 +34,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            ./cc-test-reporter before-build
             pipenv run py.test --junit-xml /tmp/test-results/junit.xml --cov=badger --cov-report=xml:coverage.xml --cov-report=html:/tmp/test-results/coverage --cov-branch
-            ./cc-test-reporter after-build -t coverage.py --exit-code $?
 
       - store_test_results:
           path: /tmp/test-results
