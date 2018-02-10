@@ -11,13 +11,18 @@ python:
 before_install:
   - pip install pytest pytest-cov
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 # command to install dependencies
 install: 
   - pip install -e .
 
 # command to run tests
 script: 
-  - pytest --cov
+  - pytest --cov=badger --cov-branch --cov-report=xml:coverage.xml
 
-# after_success:
-#   - codecov
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
