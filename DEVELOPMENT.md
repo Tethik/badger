@@ -1,6 +1,4 @@
 ## Testing
-
-(todo)
 ```bash
 pytest --cov=badger --cov-report=term-missing
 ```

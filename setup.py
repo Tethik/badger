@@ -1,11 +1,13 @@
 import re
 import sys
-from setuptools import setup, find_packages
+from setuptools import setup
 
 with open('badger/version.py', 'r') as fd:
     VERSION = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
+
 with open("LICENSE") as f:
     LICENSE = f.read()
+
 with open("README.rst") as f:
     README = f.read()
 
@@ -27,7 +29,8 @@ if len(sys.argv) > 1 and sys.argv[1] == "bdist_wheel":
     with open('README.rst', 'w') as f:
         README = re.sub(r'v\d.\d.\d', 'v'+VERSION, README)
         README = re.sub(r'\d+\.?\d*%', '{:.2%}'.format(coverage), README)
-        README = re.sub(r'\("coverage", \d+\.?\d*\)', '("coverage", {0:.2f})'.format(100 * coverage), README)
+        README = re.sub(r'\("coverage", \d+\.?\d*\)', '("coverage", {0:.2f})'.
+                        format(100 * coverage), README)
         f.write(README)
 
 
@@ -40,7 +43,7 @@ setup(
     long_description=README,
     url='https://github.com/Tethik/badger',
     packages=['badger'],
-    entry_points = {
+    entry_points={
         'console_scripts': ['badger=badger.__main__:main'],
     },
     zip_safe=True,
@@ -59,10 +62,11 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3',        
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python',
     ]
 )

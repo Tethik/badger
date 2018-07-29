@@ -44,8 +44,8 @@ Usage (Package)
 Disclaimer
 ==========
 
-Code originally heavily copied from https://github.com/dbrgn/coverage-badge . Badge
-design originally from https://github.com/badges/shields
+Code originally heavily copied from https://github.com/dbrgn/coverage-badge 
+Badge design originally from https://github.com/badges/shields
 
 .. |version| image:: examples/version.svg
 .. |coverage| image:: examples/coverage.svg
